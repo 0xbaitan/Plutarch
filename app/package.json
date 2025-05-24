@@ -1,0 +1,39 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.15.21",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "spectre.css": "^0.5.9"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/browser": "^3.1.4",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "playwright": "^1.52.0",
+    "sass": "^1.89.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-svgr": "^4.3.0",
+    "vitest": "^3.1.4"
+  }
+}
