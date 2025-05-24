@@ -80,6 +80,18 @@ stop_docker() {
     fi
 }
 
+
+# Reset Volumes 
+reset_volumes() {
+    check_docker_compose_exists
+    echo "Resetting Docker volumes..."
+    docker-compose -f docker-compose.dev.yaml down -v
+    if [[ $? -ne 0 ]]; then
+        print_error "Failed to reset Docker volumes. Please check the Docker Compose file."
+        exit 1
+    fi
+}
+
 # Help function
 help() {
     local padded_help_message
@@ -119,6 +131,11 @@ main() {
         stop)
             stop_docker
             ;;
+        
+        reset)
+            reset_volumes
+            ;;
+            
         *)
             print_error "Invalid option entered"
             echo "Use --help or -h for usage information."

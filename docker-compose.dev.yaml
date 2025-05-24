@@ -2,6 +2,7 @@ services:
   plutarch_database:
     image: postgres:14.1-alpine
     container_name: plutarch_database
+    restart: always
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
@@ -12,7 +13,31 @@ services:
       - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - plutarch_network
+
+  plutarch_databse_client:
+    image: dpage/pgadmin4:latest
+    container_name: plutarch_databse_client
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DATABASE_CLIENT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DATABASE_CLIENT_PASSWORD}
+    ports:
+      - "6100:80"
+    depends_on:
+      - plutarch_database
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - plutarch_network
 
 volumes:
   postgres_data:
     driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  plutarch_network:
+    driver: bridge
