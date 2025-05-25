@@ -1,5 +1,7 @@
 package com.plutarch.user;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,6 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 @Data
+@DynamicUpdate
 public class UserEntity {
     
     @Id
@@ -25,5 +28,5 @@ public class UserEntity {
     private String firstName;
 
     private String lastName;
-    
+
 }
