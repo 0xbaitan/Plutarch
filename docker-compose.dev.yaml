@@ -1,8 +1,29 @@
 services:
+  plutarch_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: server
+    container_name: plutarch_server
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "6200:8080"
+    expose:
+      - "8080"
+    volumes:
+      - ./server:/server
+      - ~/.m2:/root/.m2
+    depends_on:
+      - plutarch_database
+    networks:
+      - plutarch_network
+
   plutarch_database:
     image: postgres:14.1-alpine
     container_name: plutarch_database
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
@@ -16,10 +37,10 @@ services:
     networks:
       - plutarch_network
 
-  plutarch_databse_client:
+  plutarch_database_client:
     image: dpage/pgadmin4:latest
-    container_name: plutarch_databse_client
-    restart: always
+    container_name: plutarch_database_client
+    restart: unless-stopped
     environment:
       - PGADMIN_DEFAULT_EMAIL=${DATABASE_CLIENT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${DATABASE_CLIENT_PASSWORD}

@@ -62,7 +62,7 @@ build_docker() {
 start_docker() {
     check_docker_compose_exists
     echo "Starting Docker containers..."
-    docker-compose -f docker-compose.dev.yaml up -d
+    docker-compose -f docker-compose.dev.yaml up
     if [[ $? -ne 0 ]]; then
         print_error "Failed to start Docker containers. Please check the Docker Compose file."
         exit 1
@@ -91,6 +91,26 @@ reset_volumes() {
         exit 1
     fi
 }
+
+
+migration_update() {
+    check_docker_compose_exists
+    echo "Running database migrations..."
+    docker exec -it plutarch_server mvn -e liquibase:update \
+        -Dliquibase.url=${DATABASE_URL} \
+        -Dliquibase.username=${DATABASE_USER} \
+        -Dliquibase.password=${DATABASE_PASSWORD} \
+        -Dliquibase.driver=org.postgresql.Driver \
+        -Dliquibase.changeLogFile="db/changelog/db.changelog-master.xml"
+    if [[ $? -ne 0 ]]; then
+        print_error "Database migration failed. Please check the database connection and try again."
+        exit 1
+    else 
+        echo "Database migrations completed successfully."
+        exit 0
+    fi
+}
+
 
 # Help function
 help() {
@@ -135,7 +155,11 @@ main() {
         reset)
             reset_volumes
             ;;
-            
+        
+        migration:update)
+            migration_update
+            ;;
+
         *)
             print_error "Invalid option entered"
             echo "Use --help or -h for usage information."
