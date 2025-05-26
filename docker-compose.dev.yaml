@@ -1,4 +1,24 @@
 services:
+  plutarch_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: app
+    container_name: plutarch_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "6300:3000"
+    expose:
+      - "3000"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - plutarch_server
+    networks:
+      - plutarch_network
+
   plutarch_server:
     build:
       context: .

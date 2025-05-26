@@ -4,6 +4,12 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
+  server: {
+    port: 3000,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:3000",
+  },
   css: {
     preprocessorOptions: {
       scss: {
@@ -11,9 +17,7 @@ export default defineConfig({
         silenceDeprecations: ["import", "slash-div", "global-builtin"],
         quietDeps: true,
         additionalData: `
-          @import "global.scss";
-         
-          
+          @import "global.scss";        
         `,
       },
     },
