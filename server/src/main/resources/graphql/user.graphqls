@@ -1,0 +1,13 @@
+type User {
+  id: ID!
+  username: String
+  email: String
+  firstName: String
+  lastName: String
+}
+
+extend type Query {
+  getUserById(id: ID!): User
+  getUserByUsername(username: String!): User
+  getAllUsers: [User]
+}

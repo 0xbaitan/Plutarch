@@ -3,14 +3,12 @@ package com.plutarch.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
-@RestController
-@RequestMapping("/api/users")
+
+@Controller
 public class UserController {
 
     private final UserService userService;
@@ -20,15 +18,15 @@ public class UserController {
         this.userService = userService;
     }
     
-    @GetMapping
-    public List<UserEntity> getAllUsers() {
+    @QueryMapping
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping 
-    public String createUser(@RequestBody UserDto dto) {
-        return "User created f";
-    }
-
+    @QueryMapping
+      public UserDto getUserById(@Argument Long id) {
+            return userService.getUserById(id);
+      }
+  
   
 }
