@@ -2,11 +2,14 @@ import "./App.scss";
 
 import Button from "./components/Button";
 import reactLogo from "./assets/react.svg";
+import { useGetAllUsersQuery } from "./api";
 import { useState } from "react";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [{ data }] = useGetAllUsersQuery(["id", "firstName", "lastName"]);
 
+  console.log("data", data);
   return (
     <>
       <div>
