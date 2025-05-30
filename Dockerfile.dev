@@ -14,7 +14,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_ENV=development
 ENV PNPM_VERSION=9.12.2
-
+ 
 RUN npm install -g npm@latest && \
     npm install -g corepack@latest && \
     corepack enable

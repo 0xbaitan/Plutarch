@@ -51,7 +51,7 @@ check_docker_compose_exists() {
 build_docker() {
     check_docker_compose_exists
     echo "Building Docker..."
-    docker-compose -f docker-compose.dev.yaml build
+    docker compose -f docker-compose.dev.yaml build
     if [[ $? -ne 0 ]]; then
         print_error "Docker build failed. Please check the Dockerfile and try again."
         exit 1
@@ -62,7 +62,7 @@ build_docker() {
 start_docker() {
     check_docker_compose_exists
     echo "Starting Docker containers..."
-    docker-compose -f docker-compose.dev.yaml up -d
+    docker compose -f docker-compose.dev.yaml up -d
     if [[ $? -ne 0 ]]; then
         print_error "Failed to start Docker containers. Please check the Docker Compose file."
         exit 1
@@ -74,7 +74,7 @@ start_docker() {
 stop_docker() {
     check_docker_compose_exists
     echo "Stopping Docker containers..."
-    docker-compose -f docker-compose.dev.yaml down
+    docker compose -f docker-compose.dev.yaml down
     if [[ $? -ne 0 ]]; then
         print_error "Failed to stop Docker containers. Please check the Docker Compose file."
         exit 1
@@ -86,7 +86,7 @@ stop_docker() {
 reset_volumes() {
     check_docker_compose_exists
     echo "Resetting Docker volumes..."
-    docker-compose -f docker-compose.dev.yaml down -v
+    docker compose -f docker-compose.dev.yaml down -v
     if [[ $? -ne 0 ]]; then
         print_error "Failed to reset Docker volumes. Please check the Docker Compose file."
         exit 1
