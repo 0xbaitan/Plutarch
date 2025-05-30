@@ -20,8 +20,14 @@ RUN npm install -g npm@latest && \
     corepack enable
 RUN corepack prepare pnpm@${PNPM_VERSION} --activate
 
-COPY ./app /app
+COPY ./app/package.json ./app/pnpm-lock.yaml /app/
+
 WORKDIR /app
+
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm -r --prod=false install --frozen-lockfile
+
+COPY ./app /app
+
 CMD ["pnpm", "run", "dev"]
+
 EXPOSE 3000
