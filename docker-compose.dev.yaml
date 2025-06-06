@@ -14,6 +14,7 @@ services:
       - "3000"
     volumes:
       - ./app:/app
+      - /app/node_modules
     depends_on:
       - plutarch_server
     networks:
