@@ -9,6 +9,9 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: "http://0.0.0.0:3000",
+    watch: {
+      usePolling: true, // Use polling for file watching
+    }
   },
   css: {
     preprocessorOptions: {
