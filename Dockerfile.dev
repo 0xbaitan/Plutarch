@@ -14,15 +14,16 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_ENV=development
 ENV PNPM_VERSION=9.12.2
- 
+
 RUN npm install -g npm@latest && \
     npm install -g corepack@latest && \
     corepack enable
 RUN corepack prepare pnpm@${PNPM_VERSION} --activate
 
-COPY ./app/package.json ./app/pnpm-lock.yaml /app/
-
 WORKDIR /app
+
+COPY ./app/package.json /app/
+COPY ./app/pnpm-lock.yaml /app/
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm -r --prod=false install --frozen-lockfile
 
